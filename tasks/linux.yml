@@ -16,6 +16,9 @@
     regexp: "^{{ ip_address }}"
     line: "{{ ip_address }} {{ fqdn }} {{ hostname }}"
     state: present
+    # needed for "hostname -f" to return the fqdn
+    # # https://manpages.debian.org/stretch/hostname/domainname.1.en.html#THE_FQDN
+    insertbefore: BOF
     backup: yes
   when: ip_address is defined
   notify:
