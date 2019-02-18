@@ -13,12 +13,13 @@
 - name: Build hosts file (backups will be made)
   lineinfile:
     dest: /etc/hosts
-    regexp: "^{{ ip_address }}"
+    # hostname is a better anchor
+    regexp: "{{ hostname }}"
     line: "{{ ip_address }} {{ fqdn }} {{ hostname }}"
     state: present
-    # needed for "hostname -f" to return the fqdn
+    # # needed for "hostname -f" to return the fqdn
     # # https://manpages.debian.org/stretch/hostname/domainname.1.en.html#THE_FQDN
-    insertbefore: BOF
+    # insertbefore: BOF
     backup: yes
   when: ip_address is defined
   notify:
